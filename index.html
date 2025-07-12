@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Nebula Strike</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./icofont/icofont.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="left-controls">
+            <span><i class="icofont-game"></i> <span id="score">0</span></span>
+            <span id="lives"><i class="icofont-heart-alt player"></i></span>
+            <span id="bossLives"><i class="icofont-heart-alt boss"></i></span>
+        </div>
+        <div class="logo text-blue">Nebula Strike</div>
+        <div class="right-controls">
+            <span><i class="icofont-chart-histogram-alt"></i> <span id="level">1</span></span>
+            <span><i class="icofont-clock-time"></i> <span id="time">00:00</span></span>
+            <i class="icofont-ui-pause btn-icon desktop-only" onclick="showModal('pause')"></i>
+            <i class="icofont-info btn-icon" onclick="showModal('help')"></i>
+            <i class="icofont-settings btn-icon" onclick="showModal('settings')"></i>
+        </div>
+    </div>
+
+    <!-- Game Display -->
+    <div class="game-display neomorph">
+        <div class="game-canvas" id="gameCanvasContainer">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+        <!-- Start Screen -->
+        <div class="modal-content-custom modal-start neomorph active" id="startModal">
+            <h2 class="logo text-blue">Nebula Strike</h2>
+            <input type="text" id="playerName" placeholder="Enter your name">
+            <div class="character-select">
+                <button class="neomorph-button">🚀</button>
+                <button class="neomorph-button">🛸</button>
+                <button class="neomorph-button">👾</button>
+                <button class="neomorph-button">🌌</button>
+                <button class="neomorph-button">🪐</button>
+                <button class="neomorph-button">⭐</button>
+            </div>
+            <div>
+                <button class="neomorph-button text-blue" onclick="startGame()">Start</button>
+                <button class="neomorph-button text-blue" onclick="startBossMode()">Start with Boss</button>
+                <button class="neomorph-button text-blue" onclick="showModal('help')">Help</button>
+            </div>
+        </div>
+        <!-- Help Screen -->
+        <div class="modal-content-custom neomorph" id="helpModal">
+            <h2 class="text-blue">Help</h2>
+            <p><strong>Bonuses:</strong><br>
+   ❤️ - Adds one life (up to 5 lives), grants 270 points.<br>
+   ✨ - Enables unlimited shooting with red bullets until the player loses a life.<br>
+   🐽 - Destroys 25% of enemies on screen, grants 50 points per enemy.<br>
+   🐢 - Grants invincibility for 45 seconds.<br>
+   🌪 - Destroys 10% of enemies on screen, grants 50 points per enemy.</p>
+<p><strong>Enemies:</strong><br>
+   🪰, 🪲, 🪳, 🐞, 🐝, 🦜 - Basic enemies, move in formation and may dive.<br>
+   🧚‍♀️, 🧚‍♂️, 🧚 - Appear from level 2, faster diving and shoot yellow bullets when diving.<br>
+   🦋 - Appears from level 6, splits into three when diving, shoots yellow bullets.<br>
+   ☄️ - Meteors (from level 6), move diagonally, destroyed by player bullets.<br>
+   Bosses (every 5 levels): ☃️, 👾, 🦜 - Move horizontally, stop periodically to spawn enemies, require multiple hits to defeat.</p>
+        </div>
+        <!-- Results Screen -->
+        <div class="modal-content-custom neomorph" id="resultsModal">
+            <h2 class="text-blue">Game Over</h2>
+            <p>Name: <span id="resultName"></span><br>
+            Time: <span id="resultTime"></span><br>
+            Bonus Points: <span id="resultBonus">0</span><br>
+            Special Bonuses: <span id="resultSpecial">0</span><<br>
+            Levels Completed: <span id="resultLevels">0</span></p>
+            <button class="neomorph-button text-blue" onclick="showModal('start')">Restart</button>
+        </div>
+        <!-- Pause Screen -->
+        <div class="modal-content-custom neomorph" id="pauseModal">
+            <h2 class="text-blue">Paused</h2>
+            <p>Game is paused. Press Resume to continue.</p>
+            <button class="neomorph-button text-blue" onclick="resumeGame()">Resume</button>
+        </div>
+        <!-- Settings Screen -->
+        <div class="modal-content-custom neomorph" id="settingsModal">
+            <h2 class="text-blue">Settings</h2>
+            <label>Theme: 
+                <span class="toggle-switch">
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </span>
+            </label>
+            <button class="neomorph-button text-blue" onclick="showModal('start')">Save</button>
+        </div>
+    </div>
+
+    <!-- Control Panel (Mobile) -->
+    <div class="control-panel">
+        <div class="left-controls">
+            <button class="neomorph-button btn-icon text-blue" id="moveLeft"><i class="icofont-swoosh-left"></i></button>
+            <button class="neomorph-button btn-icon text-blue" id="moveRight"><i class="icofont-swoosh-right"></i></button>
+        </div>
+        <div class="right-controls">
+            <button class="neomorph-button btn-icon text-blue" id="fire"><i class="icofont-fire-burn"></i></button>
+            <button class="neomorph-button btn-icon text-blue" id="pause" onclick="showModal('pause')"><i class="icofont-ui-pause"></i></button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Prevent double-tap zoom on mobile
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = new Date().getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        });
+
+        function showModal(modalId) {
+            $('.modal-content-custom').removeClass('active');
+            $(`#${modalId}Modal`).addClass('active');
+            $('.game-canvas').removeClass('active');
+            const isDark = $('#themeToggle').is(':checked');
+            $('.game-display').removeClass('neomorph neomorph-dark').addClass(isDark ? 'neomorph-dark' : 'neomorph');
+            if (modalId === 'pause') {
+                console.log('Game Paused');
+            }
+        }
+
+        function startGame() {
+            $('.modal-content-custom').removeClass('active');
+            $('#gameCanvas').addClass('active');
+            const isDark = $('#themeToggle').is(':checked');
+            $('.game-display').removeClass('neomorph neomorph-dark').addClass(isDark ? 'neomorph-dark' : 'neomorph');
+            console.log('Game Started');
+        }
+
+        function resumeGame() {
+            $('.modal-content-custom').removeClass('active');
+            $('#gameCanvas').addClass('active');
+            const isDark = $('#themeToggle').is(':checked');
+            $('.game-display').removeClass('neomorph neomorph-dark').addClass(isDark ? 'neomorph-dark' : 'neomorph');
+            console.log('Game Resumed');
+        }
+
+        function toggleTheme() {
+            const isDark = $('#themeToggle').is(':checked');
+            $('body, .header, .control-panel, .modal-content-custom').toggleClass('dark', isDark);
+            $('.neomorph').toggleClass('neomorph-dark', isDark);
+            $('.neomorph-button').toggleClass('neomorph-button-dark', isDark);
+            $('.slider').toggleClass('dark', isDark);
+            $('input').toggleClass('dark', isDark);
+            if (!$('.modal-content-custom').hasClass('active')) {
+                $('.game-display').toggleClass('neomorph-dark', isDark).toggleClass('neomorph', !isDark);
+            }
+        }
+    </script>
+    <script type="text/javascript" src="./game.js"></script>
+</body>
+</html>

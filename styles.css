@@ -1,0 +1,394 @@
+        body {
+            background: #e0e5ec;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            touch-action: manipulation;
+        }
+        body.dark {
+            background: #2a2e39;
+        }
+
+        /* Neomorphism styles */
+        .neomorph {
+            background: #e0e5ec;
+            border-radius: 20px;
+            box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .neomorph-dark {
+            background: #2a2e39;
+            box-shadow: 8px 8px 16px #1b1e25, -8px -8px 16px #393f4d;
+            color: #e0e5ec;
+        }
+
+        .neomorph-button {
+            background: #e0e5ec;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 4px 4px 8px #a3b1c6, -4px -4px 8px #ffffff;
+            padding: 10px;
+            transition: all 0.2s ease;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .neomorph-button:hover {
+            background: #084d9c;
+        }
+
+        .neomorph-button:active {
+            box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+        }
+
+        .neomorph-button-dark {
+            background: #2a2e39;
+            box-shadow: 4px 4px 8px #1b1e25, -4px -4px 8px #393f4d;
+            color: #e0e5ec;
+        }
+
+        .neomorph-button-dark:hover {
+            background: #353b48;
+        }
+
+        .neomorph-button-dark:active {
+            box-shadow: inset 4px 4px 8px #1b1e25, inset -4px -4px 8px #393f4d;
+        }
+
+        /* Header */
+        .header {
+            height: 30px;
+            background: #e0e5ec;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 500;
+            border-bottom: 1px solid #d1d9e6;
+            margin-bottom: 15px;
+        }
+
+        .header.dark {
+            background: #2a2e39;
+            border-bottom: 1px solid #393f4d;
+            color: #e0e5ec;
+        }
+
+        .header .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header.dark .logo {
+            color: #e0e5ec;
+        }
+
+        .header .left-controls, .header .right-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .header i.icofont-heart-alt.player {
+            color: #ff4d4d;
+            font-size: 14px;
+        }
+
+        .header i.icofont-heart-alt.boss {
+            color: #007bff;
+            font-size: 14px;
+        }
+
+        .header .btn-icon {
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+            padding: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .header.dark .btn-icon {
+            color: #e0e5ec;
+        }
+
+        .header .btn-icon:hover {
+            color: #007bff;
+        }
+
+        /* Game Display */
+        .game-display {
+            margin: 0 100px;
+            padding: 20px;
+            height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid #e0e5ec;
+            border-radius: 20px;
+        }
+
+        .game-display.neomorph-dark {
+                border: 2px solid #25272b;
+            border-radius: 20px;
+        }
+
+        .game-canvas {
+            width: 100%;
+            height: 100%;
+            background: #333;
+            border-radius: 20px;
+            display: none;
+        }
+
+        .game-canvas.active {
+            display: block!important;
+        }
+
+        /* Modal Content in Game Display */
+        .modal-content-custom {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: left;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-content-custom.active {
+            display: flex;
+        }
+
+        .modal-content-custom h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .modal-content-custom .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #333;
+        }
+
+        .modal-content-custom.dark .logo {
+            color: #e0e5ec;
+            text-shadow: 0 0 10px #00c4ff, 0 0 20px #00c4ff;
+        }
+
+        .modal-content-custom input, .modal-content-custom button {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-content-custom input {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+            background: #e0e5ec;
+        }
+
+        .modal-content-custom input.dark {
+            box-shadow: inset 4px 4px 8px #1b1e25, inset -4px -4px 8px #393f4d;
+            background: #2a2e39;
+            color: #e0e5ec;
+        }
+        .modal-start {text-align:center!important;}
+
+        .character-select {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .character-select button {
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #e0e5ec;
+            box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+            border-radius: 34px;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background: #ffffff;
+            box-shadow: 2px 2px 4px #a3b1c6, -2px -2px 4px #ffffff;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        input:checked + .slider {
+            background: #2a2e39;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background: #e0e5ec;
+        }
+
+        .slider.dark {
+    box-shadow: inset 4px 4px 8px #1b1e25, inset -4px -4px 8px #393f4d;
+        }
+
+        .slider.dark:before {
+                background: #e0e5ec;
+    box-shadow: 2px 2px 4px #1b1e25, -2px -2px 4px #393f4d;
+        }
+
+        /* Control Panel (Mobile) */
+        .control-panel {
+            height: 40px;
+            background: #e0e5ec;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            border-top: 1px solid #d1d9e6;
+            margin-top: 15px;
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+        }
+
+        .control-panel.dark {
+            background: #2a2e39;
+            border-top: 1px solid #393f4d;
+        }
+
+        .control-panel .left-controls, .control-panel .right-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .control-panel .btn-icon {
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .game-display {
+                margin: 0 5px;
+                height: calc(100vh - 118px);
+                padding:3px;
+            }
+
+            .control-panel {
+                display: flex;
+            }
+
+            .desktop-only {
+                display: none;
+            }
+
+            .header .logo {
+                display: none;
+            }
+
+
+
+            .header .left-controls span:nth-child(1) {
+                font-size: 12px;
+            }
+
+            .header .left-controls span:nth-child(1) #score {
+                font-size: 12px;
+            }
+
+
+            .header .left-controls span:nth-child(2) {
+                font-size: 12px;
+            }
+
+
+            .header .left-controls span:nth-child(3) {
+                font-size: 12px;
+            }
+
+
+            .header.dark .left-controls span:nth-child(2)::after,
+            .header.dark .left-controls span:nth-child(3)::after {
+                color: #e0e5ec;
+            }
+
+           
+
+            .header .right-controls span:nth-child(1) {
+                font-size: 12px;
+            }
+
+            .header .right-controls span:nth-child(1) #level {
+                font-size: 12px;
+            }
+
+            
+
+            .header .right-controls span:nth-child(2) {
+                font-size: 12px;
+            }
+
+            .header .right-controls span:nth-child(2) #time {
+                font-size: 12px;
+            }
+        }
+
+.game-canvas canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.text-blue {color: transparent!important;
+background: #0690d1;
+-webkit-background-clip: text!important;
+-moz-background-clip: text!important;
+background-clip: text!important;
+text-shadow: 0px 3px 3px rgba(255,255,255,0.5);}
+.dark .text-blue{text-shadow:0px 1px 0px rgb(196 196 196 / 50%);}
