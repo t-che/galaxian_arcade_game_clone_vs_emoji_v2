@@ -206,7 +206,7 @@
             color: #e0e5ec;
         }
         .modal-start {text-align:center!important;}
-
+        #helpModal {max-height: 460px; overflow-y: auto;}
         .character-select {
             display: flex;
             justify-content: center;
@@ -293,7 +293,7 @@
             right: 0;
         }
 
-        .control-panel.dark {
+        .dark .control-panel {
             background: #2a2e39;
             border-top: 1px solid #393f4d;
         }
